@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synopsis - AI Based Phishing and Scam Detection System - Shresthi Kesharwani</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #525659;
+      font-family: 'Times New Roman', Times, serif;
+      color: #000;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+    }
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .page {
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      height: 297mm;
+      padding: 16mm 18mm;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+    }
+    /* College frame border */
+    .page-border {
+      border: 1.2px solid #222;
+      width: 100%;
+      height: 100%;
+      padding: 22mm 20mm;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Cover Page Specific */
+    .cover-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .title-block h1 {
+      font-size: 19pt;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .title-block h2 {
+      font-size: 16pt;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .title-block h3 {
+      font-size: 18pt;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+    .meta-block {
+      font-size: 13.5pt;
+      line-height: 1.5;
+    }
+    .meta-block .degree {
+      font-size: 15pt;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .meta-block .dept {
+      font-size: 15pt;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .student-block {
+      font-size: 14pt;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+    .guide-block {
+      font-size: 13.5pt;
+      line-height: 1.5;
+    }
+    .guide-block .guide-name {
+      font-size: 14pt;
+      font-weight: bold;
+    }
+    .college-block {
+      text-align: center;
+    }
+    .college-block img {
+      width: 160px;
+      margin-bottom: 10px;
+    }
+    .college-block .college-name {
+      font-size: 15pt;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .college-block .college-address {
+      font-size: 13pt;
+      line-height: 1.4;
+    }
+
+    /* Content Pages */
+    .content-page h2.section-title {
+      font-size: 15pt;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .content-page h3.subsection-title {
+      font-size: 13.5pt;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+    }
+    .content-page p {
+      font-size: 12.5pt;
+      text-align: justify;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .content-page ul {
+      margin-left: 28px;
+      margin-bottom: 14px;
+    }
+    .content-page ul li {
+      font-size: 12.5pt;
+      text-align: justify;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .arch-diagram-wrap {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .arch-diagram-wrap .diagram-title {
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .arch-diagram-wrap img {
+      width: 95%;
+      border-radius: 4px;
+    }
+    .arch-diagram-wrap .diagram-sub {
+      font-size: 10pt;
+      font-style: italic;
+      color: #333;
+      margin-top: 6px;
+    }
+    .reference-list {
+      margin-top: 10px;
+    }
+    .ref-item {
+      font-size: 12pt;
+      text-align: justify;
+      line-height: 1.55;
+      margin-bottom: 14px;
+      padding-left: 32px;
+      text-indent: -32px;
+    }
+
+    /* Toolbar for download/print */
+    .toolbar {
+      position: sticky;
+      top: 15px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 10px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 18px;
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #002b66;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #001a3e;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .page-container {
+        gap: 0;
+      }
+      .page {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        page-break-after: always;
+        height: 100vh;
+      }
+      .page-border {
+        border: 1.2px solid #222;
+        padding: 20mm 18mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span style="font-family: sans-serif; font-weight: 600; color: #1e293b; font-size: 14px;">
+      Shresthi Kesharwani (2501641520196) - Synopsis
+    </span>
+    <button class="btn btn-primary" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+    <a href="AI_Phishing_Detection_Synopsis_Shresthi_Kesharwani.docx" download class="btn btn-secondary">
+      📄 Download Word (.docx)
+    </a>
+    <a href="AI_Phishing_Detection_Synopsis_Shresthi_Kesharwani.pdf" download class="btn btn-secondary">
+      📥 Download PDF
+    </a>
+  </div>
+
+  <div class="page-container">
+
+    <!-- PAGE 1: TITLE PAGE -->
+    <div class="page">
+      <div class="page-border">
+        <div class="cover-content">
+          <div class="title-block">
+            <h1>SYNOPSIS</h1>
+            <h2>ON</h2>
+            <h3>“AI BASED PHISHING AND SCAM DETECTION SYSTEM”</h3>
+          </div>
+
+          <div class="meta-block">
+            <p>Submitted in</p>
+            <p><i>Partial Fulfillment of the requirements for the Award of the Degree</i></p>
+            <p><i>of</i></p>
+            <p class="degree">Bachelor of Technology</p>
+            <p><i>In</i></p>
+            <p class="dept">Computer Science and Engineering</p>
+            <p><i>by</i></p>
+          </div>
+
+          <div class="student-block">
+            <div>Student Name: Shresthi Kesharwani</div>
+            <div>Roll No.: 2501641520196</div>
+          </div>
+
+          <div class="guide-block">
+            <div>Under the supervision of</div>
+            <div class="guide-name">Supervisor Name: Mr. Rajesh Kumar</div>
+            <div>(Assistant Professor)</div>
+          </div>
+
+          <div class="college-block">
+            <img src="psit_logo.png" alt="PSIT Kanpur">
+            <div class="college-name">Pranveer Singh Institute of Technology.</div>
+            <div class="college-address">
+              Kanpur - Agra - Delhi National Highway - 19<br>
+              Bhauti - Kanpur - 209305.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: INTRODUCTION -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">1. Introduction</h2>
+        <p>
+          Phishing and online scams are among the most common and damaging cyber threats today. In a phishing attack, an attacker imitates a trusted bank, company or service through a fake website, email or SMS, and tricks the victim into revealing passwords, card numbers, OTPs or other sensitive data. Scams such as fake job offers, lottery messages, fake payment links and impersonation calls follow a similar pattern and cause large financial losses every year, particularly in India where digital payments are growing quickly.
+        </p>
+        <p>
+          Traditional defences such as blacklists and fixed rule-based filters only block threats that are already known. Attackers register new domains every day and change their messages continuously, so these methods often fail against newly created (&ldquo;zero-day&rdquo;) phishing pages. Artificial Intelligence (AI) and Machine Learning (ML) can address this gap by learning the patterns that separate malicious content from genuine content, so that unseen threats can also be recognised.
+        </p>
+        <p>
+          This project proposes an AI Based Phishing and Scam Detection System that analyses a given URL, email or message text and classifies it as Safe, Suspicious or Phishing/Scam, together with a risk score and a short explanation. The system extracts URL-based features (length, number of dots and special characters, use of IP address, HTTPS status, suspicious keywords), domain-based features (domain age, WHOIS details) and content-based features (urgency words, requests for credentials, mismatched links). A trained classifier then predicts the result in real time through a web application and an optional browser extension.
+        </p>
+        <p>
+          <b>Special terms:</b> Phishing – fraudulent attempt to steal sensitive information by impersonating a trusted entity; URL – Uniform Resource Locator, the web address of a resource; Feature Extraction – converting raw data into measurable attributes; Classifier – an ML model that assigns an input to a class; NLP – Natural Language Processing, used for analysing message text; Zero-day attack – an attack not yet present in any blacklist.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 3: OBJECTIVE -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">2. Project Objective</h2>
+        <p>
+          The main objective of this project is to design and develop an intelligent, easy-to-use system that detects phishing websites and scam messages accurately and in real time, and warns the user before any harm is done. The specific objectives are:
+        </p>
+        <ul>
+          <li>To collect and pre-process a labelled dataset of phishing and legitimate URLs and scam and genuine messages from sources such as PhishTank, the UCI Phishing Websites dataset and Kaggle.</li>
+          <li>To extract meaningful URL, domain and text features that help distinguish malicious content from genuine content.</li>
+          <li>To train and compare ML models (Logistic Regression, Random Forest, XGBoost and an NLP-based text classifier) and select the one with the best accuracy, precision, recall and F1-score.</li>
+          <li>To build a web application and browser extension where a user can submit a link or message and instantly get the result with a risk score and the reasons behind it.</li>
+          <li>To reduce false alarms and to detect newly created phishing links that are not yet in any blacklist.</li>
+          <li>To store scan history and generate simple reports for analysis and awareness.</li>
+        </ul>
+        <p>
+          At the end of the project, ordinary users, students and small businesses will have a simple and free tool that helps them identify dangerous links and messages before clicking or replying, which reduces the risk of identity theft and financial fraud.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 4: FEASIBILITY STUDY -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">3. Feasibility Study</h2>
+        <p>
+          A feasibility study checks whether the proposed system can be built successfully with the available time, skills and resources. The project was examined from the following points of view.
+        </p>
+        <p>
+          <b>Technical Feasibility:</b> The project uses open-source, well-documented technologies such as Python, scikit-learn, Flask and JavaScript. Public datasets are available for training, and the model can run on an ordinary laptop. The team has the required knowledge of programming and basic machine learning, so the project is technically feasible.
+        </p>
+        <p>
+          <b>Operational Feasibility:</b> The system has a simple interface where the user only pastes a URL or message, or uses the browser extension, and gets a clear result. It needs no special training and fits easily into the way people already browse and use email, so it is operationally feasible.
+        </p>
+        <p>
+          <b>Economic Feasibility:</b> All major tools and libraries are free and open source and the datasets are publicly available. No costly hardware is needed, so the development cost is very low and the project is economically feasible for a student mini project.
+        </p>
+        <p>
+          <b>Schedule Feasibility:</b> The work is divided into requirement analysis, data collection, model training, application development, testing and documentation. These phases can be completed within the semester time frame.
+        </p>
+        <p>
+          <b>Legal Feasibility:</b> Only publicly available datasets are used and no private user data is collected without consent. The system is designed for defence and awareness only and follows ethical and IT-law guidelines, so there is no legal obstacle.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 5: METHODOLOGY -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">4. Methodology / Planning of Work</h2>
+        <p>
+          The project will follow a step-by-step approach, from data collection to deployment:
+        </p>
+        <ul>
+          <li><b>Requirement analysis:</b> study existing phishing and scam techniques, detection methods and their limitations.</li>
+          <li><b>Data collection:</b> gather labelled phishing and legitimate URLs and scam and genuine messages from public sources.</li>
+          <li><b>Data pre-processing:</b> remove duplicates and missing values, normalise data and balance the classes.</li>
+          <li><b>Feature extraction:</b> compute URL, domain and content features; use TF-IDF for message text.</li>
+          <li><b>Model training and evaluation:</b> train several models, tune hyper-parameters and compare them using accuracy, precision, recall, F1-score and the confusion matrix.</li>
+          <li><b>Application development:</b> integrate the best model into a Flask back end with a web interface and a browser extension.</li>
+          <li><b>Testing:</b> perform unit, integration and real-world testing with fresh phishing links and check false-positive rates.</li>
+          <li><b>Deployment and documentation:</b> host the application locally or on a free cloud platform and prepare the final report.</li>
+        </ul>
+        <p>
+          The flow of information between the modules is shown in the architecture diagram below.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 6: ARCHITECTURE & TOOLS -->
+    <div class="page content-page">
+      <div class="page-border">
+        <div class="arch-diagram-wrap">
+          <div class="diagram-title">Fig. 1: System Architecture of the Proposed Phishing & Scam Detection System</div>
+          <img src="architecture_diagram.png" alt="Architecture Diagram">
+          <div class="diagram-sub">
+            Training pipeline: Labelled dataset (PhishTank / UCI / Kaggle) &rarr; Cleaning &rarr; Feature selection &rarr; Model training & evaluation &rarr; Saved model
+          </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 10px; margin-bottom: 8px;">5. Tools / Technology Used</h2>
+
+        <h3 class="subsection-title">5.1 Minimum Hardware Requirements</h3>
+        <p style="margin-bottom: 6px;">Hardware required for the development of the project.</p>
+        <ul style="margin-bottom: 10px;">
+          <li>CPU: Intel Core i5 (8th Gen) or AMD Ryzen 5 or higher, 2.4 GHz or above</li>
+          <li>RAM: 8 GB (16 GB recommended for model training)</li>
+          <li>GPU: Not mandatory; integrated graphics are sufficient. An NVIDIA GTX 1650 or better is optional for deep-learning experiments</li>
+          <li>HDD: 256 GB SSD or 500 GB HDD with at least 20 GB free space</li>
+          <li>Others (if any): Stable internet connection (for dataset download and domain look-ups), standard keyboard, mouse and monitor</li>
+        </ul>
+
+        <h3 class="subsection-title">5.2 Minimum Software Requirements</h3>
+        <p style="margin-bottom: 6px;">Software required for the development of the project.</p>
+        <ul>
+          <li>OS: Windows 10/11 (64-bit) or Ubuntu 22.04 LTS</li>
+          <li>Programming languages: Python 3.10 or above; HTML, CSS and JavaScript for the front end and browser extension</li>
+          <li>Libraries and frameworks: Pandas, NumPy, scikit-learn, XGBoost, NLTK, tldextract, python-whois, Matplotlib, Flask</li>
+          <li>Database: SQLite for storing scan history and logs</li>
+          <li>Other tools: Jupyter Notebook / Google Colab, Visual Studio Code, Git and GitHub, Google Chrome (for extension testing)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PAGE 7: REFERENCES -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">6. References</h2>
+        <div class="reference-list">
+          <div class="ref-item">
+            [1] A. Basit, M. Zafar, X. Liu, A. R. Javed, Z. Jalil, and K. Kifayat, “A comprehensive survey of AI-enabled phishing attacks detection techniques,” <i>Telecommunication Systems</i>, vol. 76, no. 1, pp. 139–154, 2021.
+          </div>
+          <div class="ref-item">
+            [2] R. M. Mohammad, F. Thabtah, and L. McCluskey, “Predicting phishing websites based on self-structuring neural network,” <i>Neural Computing and Applications</i>, vol. 25, no. 2, pp. 443–458, 2014.
+          </div>
+          <div class="ref-item">
+            [3] F. Pedregosa et al., “Scikit-learn: Machine learning in Python,” <i>Journal of Machine Learning Research</i>, vol. 12, pp. 2825–2830, 2011.
+          </div>
+          <div class="ref-item">
+            [4] T. Chen and C. Guestrin, “XGBoost: A scalable tree boosting system,” in <i>Proc. 22nd ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining</i>, San Francisco, CA, USA, 2016, pp. 785–794.
+          </div>
+          <div class="ref-item">
+            [5] PhishTank, “PhishTank – Join the fight against phishing.” [Online]. Available: https://www.phishtank.org
+          </div>
+          <div class="ref-item">
+            [6] Anti-Phishing Working Group (APWG), “Phishing Activity Trends Reports.” [Online]. Available: https://apwg.org
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

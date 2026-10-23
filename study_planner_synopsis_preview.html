@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synopsis - AI-Powered Student Study Planner - Shresthi Kesharwani</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #525659;
+      font-family: 'Times New Roman', Times, serif;
+      color: #000;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+    }
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .page {
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      height: 297mm;
+      padding: 16mm 18mm;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+    }
+    .page-border {
+      border: 1.2px solid #222;
+      width: 100%;
+      height: 100%;
+      padding: 22mm 20mm;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Cover Page Specific */
+    .cover-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .title-block h1 {
+      font-size: 19pt;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .title-block h2 {
+      font-size: 16pt;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .title-block h3 {
+      font-size: 17.5pt;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+    .meta-block {
+      font-size: 13.5pt;
+      line-height: 1.5;
+    }
+    .meta-block .degree {
+      font-size: 15pt;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .meta-block .dept {
+      font-size: 15pt;
+      font-weight: bold;
+      margin: 4px 0;
+    }
+    .student-block {
+      font-size: 14pt;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+    .guide-block {
+      font-size: 13.5pt;
+      line-height: 1.5;
+    }
+    .guide-block .guide-name {
+      font-size: 14pt;
+      font-weight: bold;
+    }
+    .college-block {
+      text-align: center;
+    }
+    .college-block img {
+      width: 160px;
+      margin-bottom: 8px;
+    }
+    .college-block .college-name {
+      font-size: 15pt;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .college-block .college-address {
+      font-size: 13pt;
+      line-height: 1.4;
+    }
+
+    /* Content Pages */
+    .content-page h2.section-title {
+      font-size: 15pt;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .content-page h3.subsection-title {
+      font-size: 13.5pt;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+    }
+    .content-page p {
+      font-size: 12.5pt;
+      text-align: justify;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .content-page ul {
+      margin-left: 28px;
+      margin-bottom: 14px;
+    }
+    .content-page ul li {
+      font-size: 12.5pt;
+      text-align: justify;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .arch-diagram-wrap {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .arch-diagram-wrap .diagram-title {
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .arch-diagram-wrap img {
+      width: 95%;
+      border-radius: 4px;
+    }
+    .arch-diagram-wrap .diagram-sub {
+      font-size: 10pt;
+      font-style: italic;
+      color: #333;
+      margin-top: 6px;
+    }
+    .reference-list {
+      margin-top: 10px;
+    }
+    .ref-item {
+      font-size: 12pt;
+      text-align: justify;
+      line-height: 1.55;
+      margin-bottom: 14px;
+      padding-left: 32px;
+      text-indent: -32px;
+    }
+
+    /* Toolbar for download/print */
+    .toolbar {
+      position: sticky;
+      top: 15px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 10px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 18px;
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #002b66;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #001a3e;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .page-container {
+        gap: 0;
+      }
+      .page {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        page-break-after: always;
+        height: 100vh;
+      }
+      .page-border {
+        border: 1.2px solid #222;
+        padding: 20mm 18mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span style="font-family: sans-serif; font-weight: 600; color: #1e293b; font-size: 14px;">
+      Shresthi Kesharwani (2501641520196) - Study Planner Synopsis
+    </span>
+    <button class="btn btn-primary" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+    <a href="AI_Study_Planner_Synopsis_Shresthi_Kesharwani.docx" download class="btn btn-secondary">
+      📄 Download Word (.docx)
+    </a>
+    <a href="AI_Study_Planner_Synopsis_Shresthi_Kesharwani.pdf" download class="btn btn-secondary">
+      📥 Download PDF
+    </a>
+  </div>
+
+  <div class="page-container">
+
+    <!-- PAGE 1: TITLE PAGE -->
+    <div class="page">
+      <div class="page-border">
+        <div class="cover-content">
+          <div class="title-block">
+            <h1>SYNOPSIS</h1>
+            <h2>ON</h2>
+            <h3>“AI-POWERED STUDENT STUDY PLANNER AND SMART TIMETABLE GENERATION SYSTEM”</h3>
+          </div>
+
+          <div class="meta-block">
+            <p>Submitted in</p>
+            <p><i>Partial Fulfillment of the requirements for the Award of the Degree</i></p>
+            <p><i>of</i></p>
+            <p class="degree">Bachelor of Technology</p>
+            <p><i>In</i></p>
+            <p class="dept">Computer Science and Engineering</p>
+            <p><i>by</i></p>
+          </div>
+
+          <div class="student-block">
+            <div>Student Name: Shresthi Kesharwani</div>
+            <div>Roll No.: 2501641520196</div>
+          </div>
+
+          <div class="guide-block">
+            <div>Under the supervision of</div>
+            <div class="guide-name">Supervisor Name: Mr. Rajesh Kumar</div>
+            <div>(Assistant Professor)</div>
+          </div>
+
+          <div class="college-block">
+            <img src="psit_logo.png" alt="PSIT Kanpur">
+            <div class="college-name">Pranveer Singh Institute of Technology.</div>
+            <div class="college-address">
+              Kanpur - Agra - Delhi National Highway - 19<br>
+              Bhauti - Kanpur - 209305.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: INTRODUCTION -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">1. Introduction</h2>
+        <p>
+          In today's rigorous academic environment, engineering and undergraduate students are confronted with extensive curricula, multiple simultaneous subjects, practical assessments, and strict examination deadlines. Effective time management is essential for academic excellence; however, a large majority of students struggle with procrastination, cognitive overload, unbalanced preparation, and severe last-minute exam anxiety. Traditional manual planning methods—such as handwritten schedules, static paper timetables, or generic spreadsheet logs—are notoriously rigid and fail to adapt when real-world delays occur, resulting in abandoned study routines and poor academic performance.
+        </p>
+        <p>
+          Conventional productivity tools and calendar applications merely record static task reminders without assessing workload urgency, topic difficulty, or cognitive fatigue. When a student falls behind on a particular topic, manual rescheduling requires tedious effort, often leading to total breakdown of the revision plan. Intelligent algorithmic scheduling bridges this gap by continuously evaluating examination proximity, remaining syllabus volume, and available daily study hours, automatically redistributing topics so that high-priority academic commitments receive proportional focus without overwhelming the learner.
+        </p>
+        <p>
+          This project proposes an AI-Powered Student Study Planner and Smart Timetable Generation System that automatically calculates optimal, personalized daily study timetables. The application models academic subjects, syllabus topics, estimated learning durations, and target examination dates. Employing an adaptive urgency-calculation algorithm combined with Pomodoro-style interval optimization (structured 45-minute focus blocks paired with 15-minute restorative breaks), the system allocates daily sessions proportionally. Students can track completion in real time via an interactive web dashboard with progress analytics and live countdowns.
+        </p>
+        <p>
+          <b>Special terms:</b> Adaptive Scheduling – dynamic algorithmic reallocation of study slots based on ongoing progress; Urgency Score – a quantified priority index calculated from exam proximity and unfinished topic volume; Pomodoro Interval – a structured session technique balancing focused cognitive sprints with rest intervals; Workload Estimation – metric measuring syllabus scope in required learning hours; Relational Persistence – structured database storage tracking topics, subjects, and parameters.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 3: OBJECTIVE -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">2. Project Objective</h2>
+        <p>
+          The primary objective of this project is to design, develop, and deploy an intelligent, automated, and easy-to-use study planning and timetable generation platform that dynamically calculates personalized study routines, prioritizes subjects by urgency, and tracks curriculum progress in real time. The specific objectives are:
+        </p>
+        <ul>
+          <li>To formulate and implement a dynamic priority algorithm that computes subject urgency scores based on days remaining until examinations and total uncompleted topic hours.</li>
+          <li>To automate multi-day study timetable generation by intelligently distributing available daily study hours into structured focus sessions and restorative break intervals.</li>
+          <li>To build an interactive and responsive web dashboard displaying overall completion percentages, subject-wise progress bars, and live examination countdowns.</li>
+          <li>To provide seamless curriculum management allowing students to add, edit, and organize subjects with custom color tags, specific topics, and estimated learning hours.</li>
+          <li>To implement real-time asynchronous topic completion tracking using AJAX and an SQLite relational database backend for frictionless user interaction.</li>
+          <li>To empower learners with customizable study settings, including adjustable daily study hours, session lengths, preferred daily start hours, and break durations.</li>
+        </ul>
+        <p>
+          At the completion of the project, students and competitive exam aspirants will have an accessible, automated, and scientifically structured tool that eliminates the stress of manual planning, mitigates exam panic, and fosters disciplined, spaced learning habits for superior academic achievement.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 4: FEASIBILITY STUDY -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">3. Feasibility Study</h2>
+        <p>
+          A comprehensive feasibility study was conducted to evaluate whether the proposed study planner system can be successfully developed and deployed within the constraints of available resources, technical expertise, and semester deadlines. The project was assessed across five key dimensions:
+        </p>
+        <p>
+          <b>Technical Feasibility:</b> The system utilizes proven, open-source, and industry-standard technologies including Python, the Flask micro-framework, SQLite, and vanilla HTML5/CSS3/JavaScript. The priority scheduling algorithm requires minimal computational overhead and runs effortlessly on standard student laptops or lightweight local servers without requiring dedicated GPUs. The development team has the requisite programming proficiency in full-stack Python development, making the project technically feasible.
+        </p>
+        <p>
+          <b>Operational Feasibility:</b> The platform features a clean, responsive card-based user interface that requires zero specialized onboarding. Students simply input their subjects, topics, and exam dates, and the application instantly outputs an actionable daily schedule. Because it seamlessly complements the existing revision routines of university students, operational adoption is straightforward and highly feasible.
+        </p>
+        <p>
+          <b>Economic Feasibility:</b> All frameworks, libraries, runtime environments, and development tools (Flask, SQLite, VS Code, Git) are entirely open-source and free of licensing costs. No expensive external cloud APIs or proprietary third-party software are necessary, keeping overall development and hosting expenditures virtually zero. The project is therefore economically optimal for an academic project.
+        </p>
+        <p>
+          <b>Schedule Feasibility:</b> The project lifecycle is divided systematically into requirement analysis, relational schema design, algorithm implementation, frontend UI assembly, testing, and documentation. All phases have been mapped to realistic milestones and can be completed well within the designated semester timeframe.
+        </p>
+        <p>
+          <b>Legal Feasibility:</b> The application operates exclusively on student-entered academic details and stores information locally within an embedded SQLite database. No personal biometric or sensitive financial data is collected or distributed, ensuring strict compliance with IT ethics and data privacy norms.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 5: METHODOLOGY -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">4. Methodology / Planning of Work</h2>
+        <p>
+          The project follows a structured engineering methodology from conceptualization to deployment, organized into sequential development phases:
+        </p>
+        <ul>
+          <li><b>Requirement analysis:</b> investigate student revision workflows, time management bottlenecks, cognitive learning theories (spaced repetition and Pomodoro focus blocks), and feature requirements.</li>
+          <li><b>Database modeling:</b> architect a relational SQLite schema comprising subjects, hierarchical topics with completion timestamps, and global user study parameters.</li>
+          <li><b>Algorithmic formulation:</b> design the urgency calculation model that evaluates remaining hours against exam deadlines and allocates proportional daily session blocks.</li>
+          <li><b>Backend routing:</b> implement Flask application routes, database connection pooling, request validation, and RESTful asynchronous topic toggle handlers.</li>
+          <li><b>Frontend interface:</b> develop a modern, aesthetically polished UI with semantic HTML5, responsive CSS3 styling, subject color-coding, progress gauges, and multi-day timetable cards.</li>
+          <li><b>Testing & validation:</b> execute rigorous unit and boundary testing (exam on same day, zero remaining topics, overlapping subject deadlines) to verify scheduling accuracy.</li>
+          <li><b>Deployment & reporting:</b> package the application for seamless local execution, configure cloud hosting parameters, and compile complete technical documentation.</li>
+        </ul>
+        <p>
+          The complete architecture and flow of information between the modules is illustrated in the system architecture diagram below.
+        </p>
+      </div>
+    </div>
+
+    <!-- PAGE 6: ARCHITECTURE & TOOLS -->
+    <div class="page content-page">
+      <div class="page-border">
+        <div class="arch-diagram-wrap">
+          <div class="diagram-title">Fig. 1: System Architecture of the Proposed Study Planner & Timetable System</div>
+          <img src="study_planner_architecture.png" alt="Architecture Diagram">
+          <div class="diagram-sub">
+            Core scheduling pipeline: Subject & Topic Data &rarr; Urgency Calculation &rarr; Session Fitting &rarr; Daily Timetable &rarr; Progress Tracking
+          </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 10px; margin-bottom: 8px;">5. Tools / Technology Used</h2>
+
+        <h3 class="subsection-title">5.1 Minimum Hardware Requirements</h3>
+        <p style="margin-bottom: 6px;">Hardware required for the development and execution of the project.</p>
+        <ul style="margin-bottom: 10px;">
+          <li>CPU: Intel Core i3 / i5 (8th Gen or higher) or AMD Ryzen 3 / 5, 2.0 GHz or above</li>
+          <li>RAM: 4 GB (8 GB recommended for seamless multitasking and local server execution)</li>
+          <li>GPU: Not required; standard integrated graphics are sufficient</li>
+          <li>HDD/SSD: 128 GB SSD or 500 GB HDD with at least 5 GB free storage space</li>
+          <li>Others (if any): Standard keyboard, mouse, and display monitor (1366x768 resolution or higher)</li>
+        </ul>
+
+        <h3 class="subsection-title">5.2 Minimum Software Requirements</h3>
+        <p style="margin-bottom: 6px;">Software required for the development and execution of the project.</p>
+        <ul>
+          <li>OS: Windows 10/11 (64-bit) or Ubuntu Linux 22.04 LTS</li>
+          <li>Programming languages: Python 3.10 or above; HTML5, CSS3, and JavaScript (ES6+)</li>
+          <li>Libraries and frameworks: Flask (v3.0+), Jinja2 template engine, Werkzeug, SQLite3</li>
+          <li>Database: SQLite relational database for local persistence of study records</li>
+          <li>Other tools: Visual Studio Code, Git and GitHub, Modern Web Browser (Google Chrome / Firefox / Edge)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PAGE 7: REFERENCES -->
+    <div class="page content-page">
+      <div class="page-border">
+        <h2 class="section-title">6. References</h2>
+        <div class="reference-list">
+          <div class="ref-item">
+            [1] H. C. Ellis, “The role of cognitive load and retrieval practice in academic study schedules,” <i>Journal of Educational Psychology</i>, vol. 112, no. 4, pp. 780–795, 2020.
+          </div>
+          <div class="ref-item">
+            [2] F. Cirillo, <i>The Pomodoro Technique: The Acclaimed Time-Management System That Has Transformed How We Work</i>, New York: Currency, 2018.
+          </div>
+          <div class="ref-item">
+            [3] M. Grissom and D. C. Baber, “Algorithmic approaches to automated academic scheduling and deadline management,” <i>IEEE Transactions on Learning Technologies</i>, vol. 14, no. 3, pp. 312–324, 2021.
+          </div>
+          <div class="ref-item">
+            [4] M. Grinberg, <i>Flask Web Development: Developing Web Applications with Python</i>, 2nd ed., Sebastopol, CA: O’Reilly Media, 2018.
+          </div>
+          <div class="ref-item">
+            [5] A. Dunlosky, K. A. Rawson, E. J. Marsh, M. J. Nathan, and D. T. Willingham, “Improving students’ learning with effective learning techniques: Promising directions from cognitive and educational psychology,” <i>Psychological Science in the Public Interest</i>, vol. 14, no. 1, pp. 4–58, 2013.
+          </div>
+          <div class="ref-item">
+            [6] SQLite Development Team, “SQLite: An In-Process Database for Autonomous and Embedded Systems.” [Online]. Available: https://www.sqlite.org
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
